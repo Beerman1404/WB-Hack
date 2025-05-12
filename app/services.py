@@ -1,7 +1,11 @@
-import pandas as pd
-from app.ml import model
+from app.ml.model import load_model, predict
 
-def predict(input_dict: dict):
-    df = pd.DataFrame([input_dict])
-    return model.predict(df)
+# Загрузка модели
+def get_model():
+    model = load_model()
+    return model
 
+# Получение предсказания
+def make_prediction(model, input_data):
+    prediction = predict(model, input_data)
+    return prediction
