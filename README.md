@@ -42,7 +42,7 @@ json
 
 ~~~
 git clone https://github.com/yourusername/WB-Hack.git
-cd fastapi-ml-service
+cd WB-Hack
 ~~~
 
 🐳 Docker
