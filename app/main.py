@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from app.services import get_model, make_prediction
 from app.schemas import InputData, PredictionResult
-from app import services
 
 app = FastAPI()
 
