@@ -53,11 +53,17 @@ cd fastapi-ml-service
 docker build -t wb-api .
 ~~~
 
-Запуск
+🚀 Запуск
 
 ~~~
 docker run -d -p 8000:8000 wb-api
 ~~~
+
+🔬 Тестирование
+
+curl -X POST "http://localhost:8000/predict" \
+     -H "Content-Type: application/json" \
+     -d @sample_input.json
 
 
 <h4>Разработчики:</h4>
