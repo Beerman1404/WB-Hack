@@ -4,12 +4,10 @@ from app.schemas import InputData, PredictionResult
 
 app = FastAPI()
 
-# Загрузка модели
-model = get_model()
-
 @app.post("/predict", response_model=PredictionResult)
 def predict(data: InputData):
     try:
+        model = get_model()
         # Подготовка данных для модели (конвертирование в список или массив)
         input_data = [data.dict().values()]
         
