@@ -9,9 +9,8 @@ def get_model():
         _model = tf.keras.models.load_model("app/ml/model.keras") 
     return _model
 
-def make_prediction(input_data):
+def make_prediction(model, input_data):
     try:
-        model = get_model()
 
         input_values = list(input_data.values())
         input_array = np.array(input_values).reshape(1, -1)
