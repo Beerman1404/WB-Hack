@@ -1,18 +1,24 @@
 import numpy as np
+import tensorflow as tf
+
+_model = None
+
+def get_model():
+    global _model
+    if _model is None:
+        _model = tf.keras.models.load_model("path/to/your/model")  # замените путь на ваш
+    return _model
 
 def make_prediction(input_data):
     try:
-        # Извлекаем все значения в список (или numpy массив)
+        model = get_model()
+
         input_values = list(input_data.values())
+        input_array = np.array(input_values).reshape(1, -1)
 
-        # Преобразуем в numpy массив (или другой подходящий формат для модели)
-        input_array = np.array(input_values).reshape(1, -1)  # reshape для 2D массива, если требуется
+        prediction = model.predict(input_array)
 
-        # Предсказание
-        prediction = _model.predict(input_array)
-
-        # Предположим, что модель возвращает метку и вероятность
-        label = int(prediction[0] > 0.5)  # Пример, если предсказание вероятностное
+        label = int(prediction[0] > 0.5)
         probability = float(prediction[0])
 
         return {"label": label, "probability": probability}
