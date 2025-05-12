@@ -1,19 +1,31 @@
-import numpy as np
-from keras.models import load_model
+import tensorflow as tf
 
-# Загрузка модели .keras (формат Keras v3)
-_model = load_model("app/ml/model.keras", safe_mode=False)  # safe_mode=False отключает строгую проверку окружения
+# Загружаем модель
+def load_model():
+    try:
+        # Загрузка модели TensorFlow (Keras)
+        model = tf.keras.models.load_model("app/ml/model.keras")
+        return model
+    except Exception as e:
+        print(f"Ошибка при загрузке модели: {e}")
+        return None
 
-def predict(input_data: list[float]) -> tuple[int, float]:
-    """
-    input_data — список числовых признаков в том же порядке, как во время обучения
-    Возвращает кортеж (метка, вероятность)
-    """
-    input_array = np.array([input_data], dtype=np.float32)  # приведение к нужной форме (1, N)
-    probabilities = _model.predict(input_array)[0]
-    
-    predicted_label = int(np.argmax(probabilities))  # предполагается многоклассовая модель
-    confidence = float(np.max(probabilities))        # вероятность предсказания
+# Функция для предсказания
+def predict(model, input_data):
+    try:
+        # Убедимся, что модель загружена
+        if model is None:
+            raise ValueError("Модель не загружена!")
 
-    return predicted_label, confidence
+        # Подготовка входных данных
+        input_data = tf.convert_to_tensor(input_data, dtype=tf.float32)
+
+        # Предсказание
+        prediction = model.predict(input_data)
+        
+        # Возвращаем результат
+        return prediction
+    except Exception as e:
+        print(f"Ошибка при предсказании: {e}")
+        return None
 
