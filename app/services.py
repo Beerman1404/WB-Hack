@@ -6,7 +6,7 @@ _model = None
 def get_model():
     global _model
     if _model is None:
-        _model = tf.keras.models.load_model("ml/model.keras") 
+        _model = tf.keras.models.load_model("app/ml/model.keras") 
     return _model
 
 def make_prediction(input_data):
