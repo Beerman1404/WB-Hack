@@ -18,7 +18,7 @@ def make_prediction(input_data):
 
         prediction = model.predict(input_array)
 
-        label = int(prediction[0] > 0.5)
+        label = int(prediction[0] > 0.8)
         probability = float(prediction[0])
 
         return {"label": label, "probability": probability}
